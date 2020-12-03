@@ -32,7 +32,7 @@ const SuratKeluar = () => {
   return(
     <CCard>
       <CCardHeader>
-        <a href={`${process.env.REACT_APP_BASE_URL}/cetak-surat-masuk?instansi_id=${User.instansi_id}&tahun=${Parameter.tahun}&bulan=${Parameter.bulan}`} color="primary" style={{marginRight : 10}}><FontAwesomeIcon style={{marginTop : 5}} icon={faPrint} size='lg'/></a>
+        <a href={`${process.env.REACT_APP_BASE_URL}/cetak-surat-keluar?instansi_id=${User.instansi_id}&tahun=${Parameter.tahun}&bulan=${Parameter.bulan}`} color="primary" style={{marginRight : 10}}><FontAwesomeIcon style={{marginTop : 5}} icon={faPrint} size='lg'/></a>
         <MuiPickersUtilsProvider utils={MomentUtils}>
           <DatePicker autoOk variant="inline" value={Parameter.tahun} onChange={(e) => SetParameter({...Parameter, tahun : moment(e).format('yyyy')})} views={["year"]} style={{ width : 40 }}/>
         </MuiPickersUtilsProvider>
