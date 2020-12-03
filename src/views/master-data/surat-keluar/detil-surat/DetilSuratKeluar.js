@@ -10,19 +10,27 @@ import PdF from '../../../../assets/images/pdf.png';
 import Word from '../../../../assets/images/word.png';
 import Excel from '../../../../assets/images/excel.png';
 import ModalEditSuratKeluar from './modal-edit/ModalEditSuratKeluar';
+import ModalTambahFileSurat from './modal-file/ModalTambahFileSurat';
+import { Button } from '@material-ui/core';
 
 const DetilSuratKeluar = ({history}) => {
     const User = JSON.parse(localStorage.getItem('user'));
     const [Data, setData] = useState({});
     const [Loading, setLoading] = useState(true);
+    const [LoadingHapus, setLoadingHapus] = useState(false);
     
     let { slug } = useParams();
 
     const [Modal, setModal] = useState(false);
+    const [ModalFile, setModalFile] = useState(false);
 
     const TogleModal = useCallback(() => {
         setModal(!Modal);
     },[Modal])
+
+    const TogleModalFile = useCallback(() => {
+        setModalFile(!ModalFile);
+    },[ModalFile])
 
 
     const GetDataSurat = useCallback(async () => {
@@ -84,6 +92,75 @@ const DetilSuratKeluar = ({history}) => {
         })
       }
 
+      
+      const CobadeleteFile = (id, slug) => {
+        Swal.fire({
+          title: 'yakin ingin menghapus File?',
+          text: "File akan terhapus permanent!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Ya, Hapus Aja!!'
+        }).then((result) => {
+          if (result.value) {
+            HapusFileSurat(id, slug);
+            Swal.fire(
+              'Dihapus!',
+              'File telah dihapus.',
+              'success'
+            )
+          }
+        })
+      }
+
+      
+
+      const HapusFileSurat = async (id, slug) => {
+        setLoadingHapus(true);
+        const User = JSON.parse(localStorage.getItem('user'));
+        const Instansi = JSON.parse(localStorage.getItem('instansi'));
+        const FormData = {id : id};
+        await axios({
+          method : 'delete',
+          url : `${process.env.REACT_APP_BASE_URL}/api/file-surat-keluar`,
+          data: FormData,
+          headers: {
+            Accept: 'application/json',
+            Authorization : `Bearer ${User.token}`
+          }
+        }).then(res => {
+          if(res.data === 'sukses'){
+            axios.get(`${Instansi.url_server}/upload/delete_file?path=surat-keluar&file=${slug}`,{
+              headers: {
+                Accept: 'application/json'
+              }}
+            ).then( async (res2) =>{
+                await GetDataSurat();
+                setLoadingHapus(false);
+            }).catch((error) => {
+                console.log(error)
+            });
+          }
+        })
+        
+      };
+
+
+      const TombolOtoritas = () => {
+          return(
+            <CRow>
+                <CCol md={6}>
+                    <CButton color="success" onClick={TogleModal} className='mb-2' variant="outline" shape="square" size="sm">Edit Surat</CButton>
+                    <CButton color="info" onClick={TogleModalFile} className='mb-2 ml-2' variant="outline" shape="square" size="sm">Tambah File Surat</CButton>
+                </CCol>
+                <CCol md={6}>
+                    <CButton color="danger" onClick={ClickDelete}  className='float-right' variant="outline" shape="square" size="sm">Hapus Surat</CButton>
+                </CCol>
+            </CRow>
+          )
+      }
+
 
     return(
         <CCard>
@@ -94,17 +171,14 @@ const DetilSuratKeluar = ({history}) => {
                             Data.kategori ? 
                             <React.Fragment>
                                 <ModalEditSuratKeluar Modal={Modal} TogleModal={TogleModal} Data={Data} GetDataSurat={GetDataSurat}/>
+                                <ModalTambahFileSurat ModalFile={ModalFile} TogleModalFile={TogleModalFile} Data={Data} GetDataSurat={GetDataSurat}/>
                             <h2 className='text-center header_surat' style={{marginBottom : 20}}>{Data.nomor_surat}</h2>
                             {
                                 User.level === 1 ?
-                                <CRow>
-                                    <CCol md={6}>
-                                        <CButton color="success" onClick={TogleModal} className='mb-2' variant="outline" shape="square" size="sm">Edit Surat</CButton>
-                                    </CCol>
-                                    <CCol md={6}>
-                                        <CButton color="danger" onClick={ClickDelete}  className='float-right' variant="outline" shape="square" size="sm">Hapus Surat</CButton>
-                                    </CCol>
-                                </CRow> : null
+                                TombolOtoritas() : 
+                                User.id === Data.user_id ?
+                                TombolOtoritas() : 
+                                null
                             }
                             <CRow style={{backgroundColor : '#e6f7ff'}}>
                                  <CCol md={12}>
@@ -145,10 +219,15 @@ const DetilSuratKeluar = ({history}) => {
                                      <td><p style={{marginTop : 0, marginBottom : 0, marginLeft :20}}>File Surat</p></td>
                                      <td width='10px'>:</td>
                                      <td colSpan={4}>
+                                         
+                                     </td>
+                                     </tr>
+                                     <tr>
+                                         <td colSpan={6}>
                                          <table><tbody><tr>
                                          {
                                              Data.files.map((list, index)=>
-                                             <td key={index} width='100px'>
+                                             <td key={index} width='150px'>
                                                  <a href={`${list.url}/${list.slug}.${list.extensi}`}>
                                                  <img style={{'backgroundColor' : 'white'}} src={
                                                      list.extensi === 'pdf' ?
@@ -163,11 +242,15 @@ const DetilSuratKeluar = ({history}) => {
                                                          null
                                                  } width="100%"/>
                                                  </a>
+                                                 {
+                                                     list.nama_file
+                                                 }<br/>
+                                                 <CButton onClick={() => CobadeleteFile(list.id, `${list.slug}.${list.extensi}`)} disabled={LoadingHapus} className='btn-block mt-2' color="danger" shape="square" size="sm">{!LoadingHapus ? 'Hapus' : 'Loading...'}</CButton>
                                              </td>
                                              )
                                          }
                                          </tr></tbody></table>
-                                     </td>
+                                         </td>
                                      </tr>
                                      </tbody>
                                  </table>

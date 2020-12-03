@@ -116,8 +116,6 @@ const DetilSuratInKomponent = ({history}) => {
     })
   }
 
-
-
   useEffect(() => {
     GetDataSurat();
   },[GetDataSurat])
