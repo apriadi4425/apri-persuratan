@@ -95,14 +95,17 @@ const DetilSuratKeluar = ({history}) => {
                             <React.Fragment>
                                 <ModalEditSuratKeluar Modal={Modal} TogleModal={TogleModal} Data={Data} GetDataSurat={GetDataSurat}/>
                             <h2 className='text-center header_surat' style={{marginBottom : 20}}>{Data.nomor_surat}</h2>
-                            <CRow>
-                                <CCol md={6}>
-                                    <CButton color="success" onClick={TogleModal} className='mb-2' variant="outline" shape="square" size="sm">Edit Surat</CButton>
-                                </CCol>
-                                <CCol md={6}>
-                                    <CButton color="danger" onClick={ClickDelete}  className='float-right' variant="outline" shape="square" size="sm">Hapus Surat</CButton>
-                                </CCol>
-                            </CRow>
+                            {
+                                User.level === 1 ?
+                                <CRow>
+                                    <CCol md={6}>
+                                        <CButton color="success" onClick={TogleModal} className='mb-2' variant="outline" shape="square" size="sm">Edit Surat</CButton>
+                                    </CCol>
+                                    <CCol md={6}>
+                                        <CButton color="danger" onClick={ClickDelete}  className='float-right' variant="outline" shape="square" size="sm">Hapus Surat</CButton>
+                                    </CCol>
+                                </CRow> : null
+                            }
                             <CRow style={{backgroundColor : '#e6f7ff'}}>
                                  <CCol md={12}>
                                  <table className='table table-borderless table-striped mt-2'>
