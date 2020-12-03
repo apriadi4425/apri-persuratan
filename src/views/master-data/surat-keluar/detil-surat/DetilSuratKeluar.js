@@ -5,13 +5,14 @@ import {withRouter} from 'react-router-dom';
 import axios from 'axios';
 import '../../surat-masuk/detil-surat/detil.css';
 import * as moment from 'moment';
-
+import Swal from "sweetalert2";
 import PdF from '../../../../assets/images/pdf.png';
 import Word from '../../../../assets/images/word.png';
 import Excel from '../../../../assets/images/excel.png';
 import ModalEditSuratKeluar from './modal-edit/ModalEditSuratKeluar';
 
 const DetilSuratKeluar = ({history}) => {
+    const User = JSON.parse(localStorage.getItem('user'));
     const [Data, setData] = useState({});
     const [Loading, setLoading] = useState(true);
     
@@ -25,7 +26,6 @@ const DetilSuratKeluar = ({history}) => {
 
 
     const GetDataSurat = useCallback(async () => {
-        const User = JSON.parse(localStorage.getItem('user'));
         await axios.get(`${process.env.REACT_APP_BASE_URL}/api/surat-keluar-detil?slug=${slug}`, {
           headers: {
             Accept: 'application/json',
@@ -45,6 +45,46 @@ const DetilSuratKeluar = ({history}) => {
       },[])
 
 
+      const LakukanDelete = async () => {
+        await axios({
+          method : 'delete',
+          url : `${process.env.REACT_APP_BASE_URL}/api/surat-keluar`,
+          data: {
+            id_surat : Data.id,
+          },
+          headers: {
+            Accept: 'application/json',
+            Authorization : `Bearer ${User.token}`
+          }
+        }).then(res => {
+          history.push('/master-data/surat-keluar');
+        }).catch(function (error) {
+          console.log('tes')
+        });
+      }
+
+      const ClickDelete = () => {
+        Swal.fire({
+          title: 'Anda yakin akan menghapus?',
+          text: "Seluruh data tentang surat ini akan terhapus!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Ya, Hapus Aja!!'
+        }).then((result) => {
+          if (result.value) {
+            LakukanDelete();
+            Swal.fire(
+              'Deleted!',
+              'Your file has been deleted.',
+              'success'
+            )
+          }
+        })
+      }
+
+
     return(
         <CCard>
             <CCardBody>
@@ -57,7 +97,10 @@ const DetilSuratKeluar = ({history}) => {
                             <h2 className='text-center header_surat' style={{marginBottom : 20}}>{Data.nomor_surat}</h2>
                             <CRow>
                                 <CCol md={6}>
-                                <CButton color="success" onClick={TogleModal} className='mb-2' variant="outline" shape="square" size="sm">Edit Surat</CButton>
+                                    <CButton color="success" onClick={TogleModal} className='mb-2' variant="outline" shape="square" size="sm">Edit Surat</CButton>
+                                </CCol>
+                                <CCol md={6}>
+                                    <CButton color="danger" onClick={ClickDelete}  className='float-right' variant="outline" shape="square" size="sm">Hapus Surat</CButton>
                                 </CCol>
                             </CRow>
                             <CRow style={{backgroundColor : '#e6f7ff'}}>
