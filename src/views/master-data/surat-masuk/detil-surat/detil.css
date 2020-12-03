@@ -1,0 +1,12 @@
+@import url('./google.css');
+
+.header_surat {
+  font-family: 'Martel', serif;
+  font-size: 30px;
+}
+
+.table tbody.detil_text tr td {
+  font-family: 'EB Garamond', serif;
+  color: #000000;
+  font-size: 15px;
+}
