@@ -1,5 +1,5 @@
 import React, {useState, useCallback} from 'react'
-import {CButton, CCol, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle, CRow} from "@coreui/react";
+import {CButton, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle} from "@coreui/react";
 import {useDropzone} from 'react-dropzone'
 import axios from 'axios';
 

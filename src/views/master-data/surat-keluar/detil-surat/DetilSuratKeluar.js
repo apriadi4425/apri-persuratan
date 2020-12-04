@@ -11,7 +11,7 @@ import Word from '../../../../assets/images/word.png';
 import Excel from '../../../../assets/images/excel.png';
 import ModalEditSuratKeluar from './modal-edit/ModalEditSuratKeluar';
 import ModalTambahFileSurat from './modal-file/ModalTambahFileSurat';
-import { Button } from '@material-ui/core';
+import ModalSuratPengantar from './modal-surat-pengantar/ModalSuratPengantar';
 
 const DetilSuratKeluar = ({history}) => {
     const User = JSON.parse(localStorage.getItem('user'));
@@ -23,6 +23,7 @@ const DetilSuratKeluar = ({history}) => {
 
     const [Modal, setModal] = useState(false);
     const [ModalFile, setModalFile] = useState(false);
+    const [ModalSuratPengantarx, SetModalSuratPengantarx] = useState(false);
 
     const TogleModal = useCallback(() => {
         setModal(!Modal);
@@ -31,6 +32,10 @@ const DetilSuratKeluar = ({history}) => {
     const TogleModalFile = useCallback(() => {
         setModalFile(!ModalFile);
     },[ModalFile])
+
+    const TogleModalSuratPengantar = useCallback(() => {
+      SetModalSuratPengantarx(!ModalSuratPengantarx);
+    },[ModalSuratPengantarx])
 
 
     const GetDataSurat = useCallback(async () => {
@@ -52,6 +57,7 @@ const DetilSuratKeluar = ({history}) => {
         GetDataSurat();
       },[])
 
+     
 
       const LakukanDelete = async () => {
         await axios({
@@ -153,6 +159,7 @@ const DetilSuratKeluar = ({history}) => {
                 <CCol md={6}>
                     <CButton color="success" onClick={TogleModal} className='mb-2' variant="outline" shape="square" size="sm">Edit Surat</CButton>
                     <CButton color="info" onClick={TogleModalFile} className='mb-2 ml-2' variant="outline" shape="square" size="sm">Tambah File Surat</CButton>
+                    <CButton color="primary" onClick={TogleModalSuratPengantar} className='mb-2 ml-2' variant="outline" shape="square" size="sm">Surat Pengantar</CButton>
                 </CCol>
                 <CCol md={6}>
                     <CButton color="danger" onClick={ClickDelete}  className='float-right' variant="outline" shape="square" size="sm">Hapus Surat</CButton>
@@ -172,6 +179,7 @@ const DetilSuratKeluar = ({history}) => {
                             <React.Fragment>
                                 <ModalEditSuratKeluar Modal={Modal} TogleModal={TogleModal} Data={Data} GetDataSurat={GetDataSurat}/>
                                 <ModalTambahFileSurat ModalFile={ModalFile} TogleModalFile={TogleModalFile} Data={Data} GetDataSurat={GetDataSurat}/>
+                                <ModalSuratPengantar ModalSuratPengantarx={ModalSuratPengantarx} TogleModalSuratPengantar={TogleModalSuratPengantar} Data={Data}/>
                             <h2 className='text-center header_surat' style={{marginBottom : 20}}>{Data.nomor_surat}</h2>
                             {
                                 User.level === 1 ?
