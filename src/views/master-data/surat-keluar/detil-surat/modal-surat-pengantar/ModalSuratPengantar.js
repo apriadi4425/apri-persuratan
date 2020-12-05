@@ -1,6 +1,6 @@
-import React, {useState, useCallback, useEffect} from 'react'
+import React, {useState, useEffect} from 'react'
 import {CButton, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle, CRow, CCol} from "@coreui/react";
-import {FormControl, FormHelperText, InputLabel, MenuItem, Select, TextField} from "@material-ui/core";
+import {FormControl, InputLabel, MenuItem, Select, TextField} from "@material-ui/core";
 import axios from 'axios';
 
 const ModalSuratPengantarKomponent = ({ModalSuratPengantarx, TogleModalSuratPengantar, Data}) => {
@@ -67,12 +67,17 @@ const ModalSuratPengantarKomponent = ({ModalSuratPengantarx, TogleModalSuratPeng
     const ValidasiKarakter = (e, parameter) => {
         const filteredInput = e.target.value.replace(/[$&_^}{*'@#%]/, '');
         if(parameter === 'perihal'){
-          SetForm({...Form, parameter: filteredInput})
+          SetForm({...Form, [parameter]: filteredInput})
         }
         else{
           SetForm({...Form, [parameter]: filteredInput})
         }
     
+      };
+
+      const ValidasiKarakter2 = (e, parameter) => {
+        const filteredInput2 = e.target.value.replace(/[$&_^}{*'@#%]/, '');
+        setFormLists({...FormLists, [parameter]: filteredInput2})
       };
 
       const get_list_pengantar = async () => {
@@ -207,7 +212,7 @@ const ModalSuratPengantarKomponent = ({ModalSuratPengantarx, TogleModalSuratPeng
             <CCol>
             <FormControl fullWidth margin='normal'>
                 <InputLabel shrink id="demo-simple-select-placeholder-label-label">
-                  Pilih Penerima
+                  Penanda Tangan
                 </InputLabel>
                 <Select
                   labelId="demo-simple-select-placeholder-label-label"
@@ -286,13 +291,13 @@ const ModalSuratPengantarKomponent = ({ModalSuratPengantarx, TogleModalSuratPeng
                         <TextField value={FormLists.urutan} onChange={(e) => setFormLists({...FormLists, urutan : e.target.value})} placeholder="Nomor Huruf" style={{width : 50}}/>
                   </td>
                   <td>
-                        <TextField fullWidth value={FormLists.perihal} onChange={(e) => setFormLists({...FormLists, perihal : e.target.value})} placeholder="Yang dikirim"  multiline rowsMax={10}/>
+                        <TextField fullWidth value={FormLists.perihal} onChange={(e) => ValidasiKarakter2(e, 'perihal')} placeholder="Yang dikirim"  multiline rowsMax={10}/>
                   </td>
                   <td>
                         <TextField value={FormLists.jumlah} onChange={(e) => setFormLists({...FormLists, jumlah : e.target.value})} placeholder="Banyaknya"/>
                   </td>
                   <td colSpan={2}>
-                        <TextField fullWidth value={FormLists.keterangan} onChange={(e) => setFormLists({...FormLists, keterangan : e.target.value})} placeholder="Keterangan"  multiline rowsMax={10}/>
+                        <TextField fullWidth value={FormLists.keterangan} onChange={(e) => ValidasiKarakter2(e, 'keterangan')} placeholder="Keterangan"  multiline rowsMax={10}/>
                   </td>
                 </tr> : null
               }
@@ -311,7 +316,7 @@ const ModalSuratPengantarKomponent = ({ModalSuratPengantarx, TogleModalSuratPeng
                  : null
               }
 
-                        <a href={Form.kota_tujuan === '' || Form.tujuan === '' ? '#/master-data/surat-keluar/' + Data.slug : `${process.env.REACT_APP_BASE_URL}/cetak-surat-pengantar?slug=${Data.slug}&tujuan=${Form.tujuan}&kota_tujuan=${Form.kota_tujuan}&nama=${Data.tujuan}&penanda_tangan=${Form.penanda_tangan}` } className={Form.kota_tujuan === '' || Form.tujuan === '' ? 'btn btn-secondary ml-2' : 'btn btn-primary ml-2'}>
+                        <a href={Form.kota_tujuan === '' || Form.tujuan === '' || Form.amplop === '' ? '#/master-data/surat-keluar/' + Data.slug : `${process.env.REACT_APP_BASE_URL}/cetak-surat-pengantar?slug=${Data.slug}&tujuan=${Form.tujuan}&kota_tujuan=${Form.kota_tujuan}&nama=${Data.tujuan}&penanda_tangan=${Form.penanda_tangan}` } className={Form.kota_tujuan === '' || Form.tujuan === '' ? 'btn btn-secondary ml-2' : 'btn btn-primary ml-2'}>
                         {Form.kota_tujuan === '' || Form.tujuan === '' ? '#' : 'Cetak'}
                         </a>
                 <CButton color="secondary" onClick={TogleModalSuratPengantar}>Cancel</CButton>
