@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import {CCard, CCardBody, CCardHeader, CDataTable} from "@coreui/react";
+import {CCard, CCardBody, CCardHeader, CDataTable, CBadge} from "@coreui/react";
 import HelperSuratKeluar from "./HelperSuratKeluar";
 import * as moment from "moment";
 import '../StyleSurat.css';
@@ -84,6 +84,9 @@ const SuratKeluar = () => {
                 return (
                   <td className="py-2 font_for_surat_masuk">
                       {item.asal}
+                      {
+                        item.otoritas === '2' ? <span> <CBadge color={item.status === 1 ? 'danger' : 'success'}>Request</CBadge></span> : null
+                      }
                   </td>
                 )
               },
@@ -91,7 +94,7 @@ const SuratKeluar = () => {
               (item, index) => {
                 return (
                   <td className="py-2 font_for_surat_masuk">
-                    <Link to={`/master-data/surat-keluar/${item.slug}`}>
+                    <Link to={`/master-data/surat-keluar/${item.slug}/surat-keluar`}>
                      {item.nomor_surat}
                     </Link>
                   </td>

@@ -20,7 +20,7 @@ const DetilSuratKeluar = ({history}) => {
     const [Loading, setLoading] = useState(true);
     const [LoadingHapus, setLoadingHapus] = useState(false);
     
-    let { slug } = useParams();
+    let { slug, action } = useParams();
 
     const [Modal, setModal] = useState(false);
     const [ModalFile, setModalFile] = useState(false);
@@ -77,7 +77,11 @@ const DetilSuratKeluar = ({history}) => {
             Authorization : `Bearer ${User.token}`
           }
         }).then(res => {
-          history.push('/master-data/surat-keluar');
+          if(action === 'surat-keluar'){
+            history.push('/master-data/surat-keluar');
+          }else{
+            history.push('/master-data/request-surat');
+          }
         }).catch(function (error) {
           console.log('tes')
         });
@@ -188,7 +192,14 @@ const DetilSuratKeluar = ({history}) => {
                                 <ModalTambahFileSurat ModalFile={ModalFile} TogleModalFile={TogleModalFile} Data={Data} GetDataSurat={GetDataSurat}/>
                                 <ModalSuratPengantar ModalSuratPengantarx={ModalSuratPengantarx} TogleModalSuratPengantar={TogleModalSuratPengantar} Data={Data}/>
                                 <ModalAmplop ModalAmplopx={ModalAmplopx} TogleModalAmplopx={TogleModalAmplopx} Data={Data}/>
-                            <h2 className='text-center header_surat' style={{marginBottom : 20}}>{Data.nomor_surat}</h2>
+                              
+                              {
+                                User.level === 2 ?
+                                  Data.status === 1 ? <span style={{color : 'red', fontWeight : 'bold'}}>Surat Belum di Aprove Admin</span>
+                                  : null
+                                : null
+                              }
+                              <h2 className='text-center header_surat' style={{marginBottom : 20}}>{Data.nomor_surat}</h2>
                             {
                                 User.level === 1 ?
                                 TombolOtoritas() : 

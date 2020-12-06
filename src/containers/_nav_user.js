@@ -53,6 +53,12 @@ export default [
     ],
   },
 
+  {
+    _tag: 'CSidebarNavItem',
+    name: 'Request Surat',
+    to: '/master-data/request-surat',
+    icon: 'cil-envelope-open',
+  },
 
   //
   {

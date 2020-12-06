@@ -127,7 +127,7 @@ const ModalTambahSuratKomponent = ({GetDataUser, history}) => {
       if(res.data.status === 'error_nomor_agenda'){
         SetError({...Error, error_nomor_agenda : true})
       }else{
-        history.push(`/master-data/surat-keluar/${res.data.slug}`)
+        history.push(`/master-data/surat-keluar/${res.data.slug}/surat-keluar`)
         PanggilDataUrutan();
         GetDataUser()
         TogleModal();

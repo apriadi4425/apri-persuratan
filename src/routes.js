@@ -11,6 +11,9 @@ const DetilSuratKeluar = React.lazy(() => import('./views/master-data/surat-kelu
 
 const DisposisiSaya = React.lazy(() => import('./views/master-data/disposisi/disposisi-saya/DisposisiSaya'));
 
+const RequestSurat = React.lazy(() => import('./views/master-data/request-surat/RequestSurat'));
+
+
 const Sk = React.lazy(() => import('./views/master-data/buat-dokument/sk/Sk'));
 const DetilSk = React.lazy(() => import('./views/master-data/buat-dokument/sk/DetilSk/DetilSk'));
 
@@ -66,7 +69,9 @@ const routes = [
   { path: '/master-data/surat-masuk/:slug', name: 'Detil Surat Masuk', component : DetilSuratIn},
 
   { path: '/master-data/surat-keluar', name: 'Surat Keluar', component : SuratKeluar, exact: true},
-  { path: '/master-data/surat-keluar/:slug', name: 'Detil Surat Keluar', component : DetilSuratKeluar, exact: true},
+  { path: '/master-data/surat-keluar/:slug/:action', name: 'Detil Surat Keluar', component : DetilSuratKeluar, exact: true},
+
+  { path: '/master-data/request-surat', name: 'Request Surat Keluar', component : RequestSurat, exact: true},
 
   { path: '/disposisi', name: 'Disposisi', exact: true },
   { path: '/disposisi/saya', name: 'Disposisi', component : DisposisiSaya },

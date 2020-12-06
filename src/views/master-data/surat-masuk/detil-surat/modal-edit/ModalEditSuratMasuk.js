@@ -13,6 +13,7 @@ import axios from "axios";
 
 const ModalEditSuratMasukKomponent = ({Modal, TogleModal, Data, GetDataSurat}) => {
   const User = JSON.parse(localStorage.getItem('user'));
+  const [LoadingEdit, setLoadingEdit] = useState(false);
   const [Form, SetForm] = useState({
     tanggal_surat : moment(Data.tanggal_surat).format('YYYY-MM-DD'),
     tanggal_terima : moment(Data.tanggal_terima).format('YYYY-MM-DD'),
@@ -89,7 +90,7 @@ const ModalEditSuratMasukKomponent = ({Modal, TogleModal, Data, GetDataSurat}) =
   };
 
   const CobaEditSurat = async () => {
-
+    setLoadingEdit(true);
 
     const HandleForm = {
       tanggal_surat : moment(Form.tanggal_surat).format('YYYY-MM-DD'),
@@ -105,7 +106,7 @@ const ModalEditSuratMasukKomponent = ({Modal, TogleModal, Data, GetDataSurat}) =
       keterangan : Form.keterangan,
       kategori_surat : kategori_surat.nama_kategori,
       id_surat : Data.id,
-      instansi_id : User.id
+      instansi_id : User.instansi_id
     };
 
     await axios({
@@ -127,6 +128,7 @@ const ModalEditSuratMasukKomponent = ({Modal, TogleModal, Data, GetDataSurat}) =
     }).catch(function (error) {
       console.log('tes')
     });
+    setLoadingEdit(false);
   }
 
   return (
@@ -327,7 +329,7 @@ const ModalEditSuratMasukKomponent = ({Modal, TogleModal, Data, GetDataSurat}) =
           </CRow>
         </CModalBody>
         <CModalFooter>
-          <CButton type='submit' onClick={CobaEditSurat} color={'success'}>Edit Data</CButton>{' '}
+          <CButton disabled={LoadingEdit} type='submit' onClick={CobaEditSurat} color={'success'}>{!LoadingEdit ? 'Edit Data' : 'Loading...'}</CButton>{' '}
           <CButton color="secondary" onClick={TogleModal}>Cancel</CButton>
         </CModalFooter>
       </CModal>
