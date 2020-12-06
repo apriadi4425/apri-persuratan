@@ -215,7 +215,7 @@ const DetilSuratKeluar = ({history}) => {
                 <CCol md={6}>
                     <CButton color="danger" onClick={ClickDelete}  className='float-right' variant="outline" shape="square" size="sm">Hapus Surat</CButton>
                     {
-                      Data.status === 1 ? <CButton color="success" onClick={CekSetujuiRequest} className='float-right mr-2' variant="outline" shape="square" size="sm">Setujui Request</CButton> : null
+                      Data.status === 1  && User.level === 1? <CButton color="success" onClick={CekSetujuiRequest} className='float-right mr-2' variant="outline" shape="square" size="sm">Setujui Request</CButton> : null
                     }
                 </CCol>
             </CRow>
@@ -317,7 +317,10 @@ const DetilSuratKeluar = ({history}) => {
                                                  {
                                                      list.nama_file
                                                  }<br/>
-                                                 <CButton onClick={() => CobadeleteFile(list.id, `${list.slug}.${list.extensi}`)} disabled={LoadingHapus} className='btn-block mt-2' color="danger" shape="square" size="sm">{!LoadingHapus ? 'Hapus' : 'Loading...'}</CButton>
+                                                 {
+                                                   User.id === Data.user_id || User.level === 1? <CButton onClick={() => CobadeleteFile(list.id, `${list.slug}.${list.extensi}`)} disabled={LoadingHapus} className='btn-block mt-2' color="danger" shape="square" size="sm">{!LoadingHapus ? 'Hapus' : 'Loading...'}</CButton> : null
+
+                                                 }
                                              </td>
                                              )
                                          }
