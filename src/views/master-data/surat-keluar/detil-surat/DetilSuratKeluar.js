@@ -80,7 +80,7 @@ const DetilSuratKeluar = ({history}) => {
           if(action === 'surat-keluar'){
             history.push('/master-data/surat-keluar');
           }else{
-            history.push('/master-data/request-surat');
+            history.push('/request-surat');
           }
         }).catch(function (error) {
           console.log('tes')
@@ -162,6 +162,46 @@ const DetilSuratKeluar = ({history}) => {
         
       };
 
+      const SetujuiSurat = async () => {
+        await axios({
+          method : 'put',
+          url : `${process.env.REACT_APP_BASE_URL}/api/request-surat`,
+          data: {
+            id : Data.id,
+          },
+          headers: {
+            Accept: 'application/json',
+            Authorization : `Bearer ${User.token}`
+          }
+        }).then(res => {
+          GetDataSurat();
+        }).catch(function (error) {
+          console.log('tes')
+        });
+      }
+
+      const CekSetujuiRequest = () => {
+        Swal.fire({
+          title: 'Persetujuan Admin!!',
+          text: "Surat akan masuk ke Master Data",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Ya, Masukan Aja!!'
+        }).then((result) => {
+          if (result.value) {
+            SetujuiSurat();
+            Swal.fire(
+              'Berhasil disetujui!',
+              'Surat telah masuk ke master.',
+              'success'
+            )
+          }
+        })
+      }
+
+      
 
       const TombolOtoritas = () => {
           return(
@@ -174,6 +214,9 @@ const DetilSuratKeluar = ({history}) => {
                 </CCol>
                 <CCol md={6}>
                     <CButton color="danger" onClick={ClickDelete}  className='float-right' variant="outline" shape="square" size="sm">Hapus Surat</CButton>
+                    {
+                      Data.status === 1 ? <CButton color="success" onClick={CekSetujuiRequest} className='float-right mr-2' variant="outline" shape="square" size="sm">Setujui Request</CButton> : null
+                    }
                 </CCol>
             </CRow>
           )
@@ -199,6 +242,8 @@ const DetilSuratKeluar = ({history}) => {
                                   : null
                                 : null
                               }
+                              
+                              
                               <h2 className='text-center header_surat' style={{marginBottom : 20}}>{Data.nomor_surat}</h2>
                             {
                                 User.level === 1 ?

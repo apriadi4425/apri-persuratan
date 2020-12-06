@@ -45,6 +45,12 @@ export default [
     ],
   },
   {
+    _tag: 'CSidebarNavItem',
+    name: 'Request Surat',
+    to: '/request-surat',
+    icon: 'cil-envelope-open',
+  },
+  {
     _tag: 'CSidebarNavDropdown',
     name: 'Buat Dokument',
     route: '/buat-dokument',

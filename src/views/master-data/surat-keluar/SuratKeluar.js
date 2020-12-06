@@ -85,7 +85,7 @@ const SuratKeluar = () => {
                   <td className="py-2 font_for_surat_masuk">
                       {item.asal}
                       {
-                        item.otoritas === '2' ? <span> <CBadge color={item.status === 1 ? 'danger' : 'success'}>Request</CBadge></span> : null
+                        item.otoritas === '2' ? <span> <CBadge  style={{fontSize : 10 }} color={item.status === 1 ? 'danger' : 'success'}>Request</CBadge></span> : null
                       }
                   </td>
                 )

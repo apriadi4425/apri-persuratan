@@ -71,7 +71,7 @@ const routes = [
   { path: '/master-data/surat-keluar', name: 'Surat Keluar', component : SuratKeluar, exact: true},
   { path: '/master-data/surat-keluar/:slug/:action', name: 'Detil Surat Keluar', component : DetilSuratKeluar, exact: true},
 
-  { path: '/master-data/request-surat', name: 'Request Surat Keluar', component : RequestSurat, exact: true},
+  { path: '/request-surat', name: 'Request Surat Keluar', component : RequestSurat, exact: true},
 
   { path: '/disposisi', name: 'Disposisi', exact: true },
   { path: '/disposisi/saya', name: 'Disposisi', component : DisposisiSaya },
