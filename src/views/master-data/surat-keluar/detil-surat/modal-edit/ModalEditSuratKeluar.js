@@ -11,6 +11,7 @@ import * as KodeSuratHelper from '../../../surat-masuk/tambah-surat/KodeSuratHel
 
 const ModalEditSuratKeluarKomponen = ({Modal, TogleModal, Data, GetDataSurat}) => {
     const User = JSON.parse(localStorage.getItem('user'));
+    const [LoadingEdit, setLoadingEdit] = useState(false);
     const [Form, SetForm] = useState({
         tanggal_surat : moment().format('YYYY-MM-DD'),
         urutan : Data.urutan,
@@ -84,7 +85,7 @@ const ModalEditSuratKeluarKomponen = ({Modal, TogleModal, Data, GetDataSurat}) =
       };
 
       const CobaEditSurat = async () => {
-
+        setLoadingEdit(true);
         const HandleForm = {
           tanggal_surat : moment(Form.tanggal_surat).format('YYYY-MM-DD'),
           tanggal_surat_indo : moment(Form.tanggal_surat).locale('id').format('dddd, DD MMMM YYYY'),
@@ -97,7 +98,7 @@ const ModalEditSuratKeluarKomponen = ({Modal, TogleModal, Data, GetDataSurat}) =
           keterangan : Form.keterangan,
           kategori_surat : kategori_surat.nama_kategori,
           id_surat : Data.id,
-          instansi_id : User.id
+          instansi_id : User.instansi_id
         };
     
         await axios({
@@ -118,6 +119,7 @@ const ModalEditSuratKeluarKomponen = ({Modal, TogleModal, Data, GetDataSurat}) =
         }).catch(function (error) {
             SetError(error.response.data.error)
         });
+        setLoadingEdit(false);
       }
 
     return(
@@ -315,7 +317,7 @@ const ModalEditSuratKeluarKomponen = ({Modal, TogleModal, Data, GetDataSurat}) =
           </CRow>
             </CModalBody>
             <CModalFooter>
-            <CButton type='submit' onClick={CobaEditSurat} color={'success'}>Edit Data</CButton>{' '}
+            <CButton disabled={LoadingEdit} type='submit' onClick={CobaEditSurat} color={'success'}>{!LoadingEdit ? 'Edit Data' : 'Loading...'}</CButton>{' '}
             <CButton color="secondary" onClick={TogleModal}>Cancel</CButton>
             </CModalFooter>
         </CModal>

@@ -20,7 +20,7 @@ const DetilSuratKeluar = ({history}) => {
     const [Loading, setLoading] = useState(true);
     const [LoadingHapus, setLoadingHapus] = useState(false);
     
-    let { slug } = useParams();
+    let { slug, action } = useParams();
 
     const [Modal, setModal] = useState(false);
     const [ModalFile, setModalFile] = useState(false);
@@ -77,7 +77,11 @@ const DetilSuratKeluar = ({history}) => {
             Authorization : `Bearer ${User.token}`
           }
         }).then(res => {
-          history.push('/master-data/surat-keluar');
+          if(action === 'surat-keluar'){
+            history.push('/master-data/surat-keluar');
+          }else{
+            history.push('/request-surat');
+          }
         }).catch(function (error) {
           console.log('tes')
         });
@@ -158,6 +162,46 @@ const DetilSuratKeluar = ({history}) => {
         
       };
 
+      const SetujuiSurat = async () => {
+        await axios({
+          method : 'put',
+          url : `${process.env.REACT_APP_BASE_URL}/api/request-surat`,
+          data: {
+            id : Data.id,
+          },
+          headers: {
+            Accept: 'application/json',
+            Authorization : `Bearer ${User.token}`
+          }
+        }).then(res => {
+          GetDataSurat();
+        }).catch(function (error) {
+          console.log('tes')
+        });
+      }
+
+      const CekSetujuiRequest = () => {
+        Swal.fire({
+          title: 'Persetujuan Admin!!',
+          text: "Surat akan masuk ke Master Data",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Ya, Masukan Aja!!'
+        }).then((result) => {
+          if (result.value) {
+            SetujuiSurat();
+            Swal.fire(
+              'Berhasil disetujui!',
+              'Surat telah masuk ke master.',
+              'success'
+            )
+          }
+        })
+      }
+
+      
 
       const TombolOtoritas = () => {
           return(
@@ -170,6 +214,9 @@ const DetilSuratKeluar = ({history}) => {
                 </CCol>
                 <CCol md={6}>
                     <CButton color="danger" onClick={ClickDelete}  className='float-right' variant="outline" shape="square" size="sm">Hapus Surat</CButton>
+                    {
+                      Data.status === 1  && User.level === 1? <CButton color="success" onClick={CekSetujuiRequest} className='float-right mr-2' variant="outline" shape="square" size="sm">Setujui Request</CButton> : null
+                    }
                 </CCol>
             </CRow>
           )
@@ -188,7 +235,16 @@ const DetilSuratKeluar = ({history}) => {
                                 <ModalTambahFileSurat ModalFile={ModalFile} TogleModalFile={TogleModalFile} Data={Data} GetDataSurat={GetDataSurat}/>
                                 <ModalSuratPengantar ModalSuratPengantarx={ModalSuratPengantarx} TogleModalSuratPengantar={TogleModalSuratPengantar} Data={Data}/>
                                 <ModalAmplop ModalAmplopx={ModalAmplopx} TogleModalAmplopx={TogleModalAmplopx} Data={Data}/>
-                            <h2 className='text-center header_surat' style={{marginBottom : 20}}>{Data.nomor_surat}</h2>
+                              
+                              {
+                                User.level === 2 ?
+                                  Data.status === 1 ? <span style={{color : 'red', fontWeight : 'bold'}}>Surat Belum di Aprove Admin</span>
+                                  : null
+                                : null
+                              }
+                              
+                              
+                              <h2 className='text-center header_surat' style={{marginBottom : 20}}>{Data.nomor_surat}</h2>
                             {
                                 User.level === 1 ?
                                 TombolOtoritas() : 
@@ -261,7 +317,10 @@ const DetilSuratKeluar = ({history}) => {
                                                  {
                                                      list.nama_file
                                                  }<br/>
-                                                 <CButton onClick={() => CobadeleteFile(list.id, `${list.slug}.${list.extensi}`)} disabled={LoadingHapus} className='btn-block mt-2' color="danger" shape="square" size="sm">{!LoadingHapus ? 'Hapus' : 'Loading...'}</CButton>
+                                                 {
+                                                   User.id === Data.user_id || User.level === 1? <CButton onClick={() => CobadeleteFile(list.id, `${list.slug}.${list.extensi}`)} disabled={LoadingHapus} className='btn-block mt-2' color="danger" shape="square" size="sm">{!LoadingHapus ? 'Hapus' : 'Loading...'}</CButton> : null
+
+                                                 }
                                              </td>
                                              )
                                          }

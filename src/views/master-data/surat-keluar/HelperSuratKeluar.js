@@ -19,13 +19,15 @@ const HelperSuratKeluar = (SetData, SetLoading) => {
     SetLoading(false);
   };
 
+  
+
   const fields = [
-    { key: 'urutan', label: 'No', _style: { width: '2%'} },
-    { key: 'nomor_surat', _style: { width: '5%'} },
-    { key: 'asal', _style: { width: '5%'} },
-    { key: 'tujuan', _style: { width: '7%'} },
+    { key: 'urutan', label: 'No', _style: { width: '1%'} },
+    { key: 'nomor_surat', _style: { width: '4%'} },
+    { key: 'asal', _style: { width: '10%'} },
+    { key: 'tujuan', _style: { width: '8%'} },
     { key: 'tanggal_surat_indo', label: 'Tgl Surat',  _style: { width: '7%'} },
-    { key: 'perihal', label: 'Tentang', _style: { width: '15%'} },
+    { key: 'perihal', label: 'Tentang', _style: { width: '12%'} },
   ]
 
   return {GetData, fields}
