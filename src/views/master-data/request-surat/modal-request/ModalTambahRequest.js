@@ -122,6 +122,15 @@ const ModalTambahRequestKomponent = ({Modal, TogleModal, GetData, history}) => {
         });
       }
 
+    const ValidasiTgl = (e) => {
+      if(moment(e).format('YYYY-MM-DD') > moment().format('YYYY-MM-DD')){
+        SetError({...Error, error_tanggal: true})
+      }else{
+        SetForm({...Form, tanggal_surat: e});
+        SetError({...Error, error_tanggal: false})
+      }
+    };
+
     return(
         <CModal size='lg' show={Modal} onClose={TogleModal} closeOnBackdrop={false} color="success">
             <CModalHeader closeButton>
@@ -132,11 +141,11 @@ const ModalTambahRequestKomponent = ({Modal, TogleModal, GetData, history}) => {
                     <MuiPickersUtilsProvider utils={MomentUtils}>
                     <CCol md={6}>
                         <DatePicker name='tanggal_surat' id='tanggal_surat' label='Tanggal Surat' fullWidth autoOk
-                                    onChange={e => {
-                                        SetForm({...Form, tanggal_surat: e});
-                                    }}
+                                    onChange={ValidasiTgl}
                                     value={Form.tanggal_surat} format="dddd, DD MMMM YYYY"
                                     margin="normal"
+                                    error={Error.error_tanggal}
+                                  helperText={Error.error_tanggal ? 'Tanggal Request tidak boleh lebih dari Hari ini' : null}
                         />
                     </CCol>
                     <CCol md={6}>
