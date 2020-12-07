@@ -58,10 +58,10 @@ const TheHeader = () => {
           <CHeaderNavLink to="/dashboard">Dashboard</CHeaderNavLink>
         </CHeaderNavItem>
         <CHeaderNavItem  className="px-3">
-          <CHeaderNavLink to="/users">Users</CHeaderNavLink>
+          <CHeaderNavLink to="/konfig/user">Users</CHeaderNavLink>
         </CHeaderNavItem>
         <CHeaderNavItem className="px-3">
-          <CHeaderNavLink>Settings</CHeaderNavLink>
+          <CHeaderNavLink to="/konfig/aplikasi">Settings</CHeaderNavLink>
         </CHeaderNavItem>
       </CHeaderNav>
 

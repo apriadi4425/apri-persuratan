@@ -5,7 +5,7 @@ const HelperSuratKeluar = (SetData, SetLoading) => {
 
   const GetData = async (Parameter) => {
     SetLoading(true);
-    await axios.get(`${process.env.REACT_APP_BASE_URL}/api/surat-keluar?tahun=${Parameter.tahun}&bulan=${Parameter.bulan}`, {
+    await axios.get(`${process.env.REACT_APP_BASE_URL}/api/surat-keluar?tahun=${Parameter.tahun}&bulan=${Parameter.bulan}&status=2`, {
       headers: {
         Accept: 'application/json',
         Authorization: `Bearer ${User.token}`

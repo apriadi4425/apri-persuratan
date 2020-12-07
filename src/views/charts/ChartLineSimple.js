@@ -10,7 +10,7 @@ const ChartLineSimple = props => {
     backgroundColor,
     pointHoverBackgroundColor,
     dataPoints,
-    label,
+    labels,
     pointed,
     ...attributes
   } = props
@@ -32,7 +32,7 @@ const ChartLineSimple = props => {
         backgroundColor: getColor(backgroundColor),
         pointBackgroundColor: getColor(pointHoverColor),
         pointHoverBackgroundColor: getColor(pointHoverColor),
-        label
+        labels
       }
     ]
   })()
@@ -126,7 +126,7 @@ const ChartLineSimple = props => {
       type="line"
       datasets={computedDatasets}
       options={computedOptions}
-      labels={label}
+      labels={labels}
     />
   )
 }
@@ -139,7 +139,7 @@ ChartLineSimple.propTypes = {
   backgroundColor: PropTypes.string,
   pointHoverBackgroundColor: PropTypes.string,
   dataPoints: PropTypes.array,
-  label: PropTypes.string,
+  labels: PropTypes.string,
   pointed: PropTypes.bool
 };
 
@@ -147,7 +147,7 @@ ChartLineSimple.defaultProps = {
   borderColor: 'rgba(255,255,255,.55)',
   backgroundColor: 'transparent',
   dataPoints: [10, 22, 34, 46, 58, 70, 46, 23, 45, 78, 34, 12],
-  label: 'Sales'
+  labels: ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober','November', 'Desember']
 };
 
 export default ChartLineSimple

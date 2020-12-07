@@ -1,52 +1,55 @@
-import React from 'react'
-import { CChartLine } from '@coreui/react-chartjs'
+import React, {useState, useEffect} from 'react'
+import { CChartBar } from '@coreui/react-chartjs'
 import { getStyle, hexToRgba } from '@coreui/utils/src'
-
+import axios from 'axios';
 const brandSuccess = getStyle('success') || '#4dbd74'
 const brandInfo = getStyle('info') || '#20a8d8'
 const brandDanger = getStyle('danger') || '#f86c6b'
 
 const MainChartExample = attributes => {
-  const random = (min, max)=>{
-    return Math.floor(Math.random() * (max - min + 1) + min)
-  }
+  const User = JSON.parse(localStorage.getItem('user'));
+  const [SuratKeluarChart, setSuratKeluarChart] = useState({jumlah : '',chart : [],bulan : []})
+  const [SuratMasukChart, setSuratSuratMasukChart] = useState({jumlah : '',chart : [],bulan : []})
+
+
+  const SuratKeluar = async (field, tabel, set, status = null) => {
+    await axios.get(`${process.env.REACT_APP_BASE_URL}/api/data-surat-keluar?field=${field}&tabel=${tabel}&status=${status}`, {
+      headers: {
+        Accept: 'application/json',
+        Authorization: `Bearer ${User.token}`
+      }
+    }).then(response => {
+      set(response.data)
+    }).catch(error => {
+      console.log(error);
+    });
+  };
+
+  useEffect(() => {
+    SuratKeluar('tanggal_surat', 't_surat_keluar', setSuratKeluarChart, 2)
+    SuratKeluar('tanggal_terima', 't_surat_masuk', setSuratSuratMasukChart)
+  },[])
+
 
   const defaultDatasets = (()=>{
-    let elements = 27
-    const data1 = []
-    const data2 = []
-    const data3 = []
-    for (let i = 0; i <= elements; i++) {
-      data1.push(random(50, 200))
-      data2.push(random(80, 100))
-      data3.push(65)
-    }
+  
     return [
       {
-        label: 'My First dataset',
+        label: 'Data Surat Keluar',
         backgroundColor: hexToRgba(brandInfo, 10),
         borderColor: brandInfo,
         pointHoverBackgroundColor: brandInfo,
         borderWidth: 2,
-        data: data1
+        data: SuratMasukChart.chart
       },
       {
-        label: 'My Second dataset',
+        label: 'Data Surat Masuk',
         backgroundColor: 'transparent',
         borderColor: brandSuccess,
         pointHoverBackgroundColor: brandSuccess,
         borderWidth: 2,
-        data: data2
+        data: SuratKeluarChart.chart
       },
-      {
-        label: 'My Third dataset',
-        backgroundColor: 'transparent',
-        borderColor: brandDanger,
-        pointHoverBackgroundColor: brandDanger,
-        borderWidth: 1,
-        borderDash: [8, 5],
-        data: data3
-      }
     ]
   })()
 
@@ -54,7 +57,7 @@ const MainChartExample = attributes => {
     return {
         maintainAspectRatio: false,
         legend: {
-          display: false
+          display: true
         },
         scales: {
           xAxes: [{
@@ -66,8 +69,8 @@ const MainChartExample = attributes => {
             ticks: {
               beginAtZero: true,
               maxTicksLimit: 5,
-              stepSize: Math.ceil(250 / 5),
-              max: 250
+              stepSize: Math.ceil(Number(SuratKeluarChart.jumlah) / 5),
+              max: Number(SuratKeluarChart.jumlah)
             },
             gridLines: {
               display: true
@@ -88,11 +91,11 @@ const MainChartExample = attributes => {
 
   // render
   return (
-    <CChartLine
+    <CChartBar
       {...attributes}
       datasets={defaultDatasets}
       options={defaultOptions}
-      labels={['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su']}
+      labels={SuratKeluarChart.bulan}
     />
   )
 }
