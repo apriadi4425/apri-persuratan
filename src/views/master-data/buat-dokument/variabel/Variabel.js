@@ -14,8 +14,9 @@ const VariabelKomponent = (props) => {
     await setModal(!Modal);
   }
 
-  const GgetData = useCallback(() => GetData(), [GetData]);
-  useEffect(() => {GgetData()},[GgetData]);
+
+  const GgetData = useCallback(() => GetData(), []);
+  useEffect(() => {GgetData()}, [GgetData]);
   return (
     <CCard>
       <ModalEditVariabel Modal={Modal} LoadingS={LoadingS} setForm={setForm} setModal={setModal} Form={Form} setLoadingS={setLoadingS} GgetData={GgetData}/>

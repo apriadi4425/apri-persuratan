@@ -9,7 +9,6 @@ import Autocomplete from "@material-ui/lab/Autocomplete";
 import 'react-input-range/lib/css/index.css';
 import * as KodeSuratHelper from '../../surat-masuk/tambah-surat/KodeSuratHelper';
 import axios from "axios";
-import Swal from "sweetalert2";
 
 const ModalBokingNomorSuratKomponent = ({Modal, TogleModal, GetData, history}) => {
     const User = JSON.parse(localStorage.getItem('user'));

@@ -16,10 +16,12 @@ const VariabelHelper = () => {
       }
     }).then(response => {
       setData(response.data)
+      setLoading(false);
     }).catch(error => {
       console.log(error);
+      setLoading(false);
     });
-    setLoading(false);
+    
   };
 
   const fields = [
