@@ -27,7 +27,9 @@ const TheHeaderDropdown = ({history}) => {
         <div className="c-avatar">
           <CImg
             src={`${process.env.REACT_APP_BASE_URL}/logo/${Instansi.logo}`}
-            className="c-avatar-img"
+            height={35}
+            width={35}
+            style={{marginTop : -5}}
             alt="admin@bootstrapmaster.com"
           />
         </div>
