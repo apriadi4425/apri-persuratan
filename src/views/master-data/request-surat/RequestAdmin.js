@@ -1,11 +1,9 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import {CCard, CCardHeader, CCardBody, CContainer, CRow, CCol, CBadge, CDataTable} from "@coreui/react";
+import {CCard, CCardHeader, CCardBody, CButton, CBadge, CDataTable} from "@coreui/react";
 import HelperRequestSurat from './HelperRequestSurat';
 import '../StyleSurat.css';
 import { Link } from 'react-router-dom';
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faPlusSquare} from "@fortawesome/free-solid-svg-icons";
-import ModalTambahRequest from './modal-request/ModalTambahRequest';
+import ModalBokingNomorSurat from './modal-booking/ModalBokingNomorSurat';
 
 const RequestSuratAdminKomponent = () => {
 
@@ -26,10 +24,13 @@ const RequestSuratAdminKomponent = () => {
     }, [])
     return(
         <CCard>
-            <ModalTambahRequest Modal={Modal} TogleModal={TogleModal} GetData={GetData}/>
+            <ModalBokingNomorSurat Modal={Modal} TogleModal={TogleModal} GetData={GetData}/>
             <CCardHeader>
                 <span style={{color : 'black', fontWeight : 'bold', fontSize : 15}}>List Request Nomor Surat</span>
                 <div className="card-header-actions text-danger font-weight-bold">
+                <CButton onClick={TogleModal} size="sm" color='primary' variant='outline' className="btn-brand mr-2 mb-1">
+                    Booking Banyak Nomor Surat
+                </CButton>
                 </div>
             </CCardHeader>
             <CCardBody>                
