@@ -3,8 +3,8 @@ import axios from 'axios';
 
 const FormHelper = () => {
 
-  const [Form, SetForm] = useState({nama : '', alamat : '', kota : '', telpon : '', email : '', website : '', kode_pos : '', kode_surat : '', url_server : '', file : '', logo : ''});
-  const [Valid, SetValid] = useState({nama : null, alamat : null, kota : null, telpon : null, email : null, website : null, kode_pos : null, kode_surat : null, url_server : null});
+  const [Form, SetForm] = useState({token : '',nama : '', alamat : '', kota : '', telpon : '', email : '', website : '', kode_pos : '', kode_surat : '', url_server : '', file : '', logo : ''});
+  const [Valid, SetValid] = useState({token : null, nama : null, alamat : null, kota : null, telpon : null, email : null, website : null, kode_pos : null, kode_surat : null, url_server : null});
   const [Loading, SetLoading] = useState(true);
   const [NotifEnter, SetNotifEnter] = useState(false);
   const [Error, setError] = useState([]);
@@ -31,6 +31,8 @@ const FormHelper = () => {
     });
         SetLoading(false)
   }, [])
+
+
 
   useEffect( () => {
     PanggilData()
@@ -87,7 +89,21 @@ const FormHelper = () => {
     });
   };
 
-  return {Form, HandleForm, Loading, CobaSaveData, Valid, NotifEnter, SaveFile, Suk, Error}
+  const GetToken = async () => {
+    const User = JSON.parse(localStorage.getItem('user'));
+    await axios.get(`${process.env.REACT_APP_BASE_URL}/api/get-token`, {
+      headers: {
+        Accept: 'application/json',
+        Authorization: `Bearer ${User.token}`
+      }
+    }).then(response => {
+        SetForm({...Form, token : response.data})
+    }).catch(error => {
+        console.log(error);
+    });
+  }
+
+  return {Form, HandleForm, Loading, CobaSaveData, Valid, NotifEnter, SaveFile, Suk, Error, GetToken}
 }
 
 export default FormHelper;

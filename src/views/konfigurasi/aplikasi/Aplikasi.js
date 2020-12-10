@@ -1,11 +1,12 @@
 import React, {Fragment} from 'react';
-import {CCard, CCardBody, CCardHeader, CCol, CRow, CFormGroup, CInputFile, CLabel, CInvalidFeedback, CValidFeedback} from "@coreui/react";
+import {CCard, CCardBody, CCardHeader, CCol, CRow, CFormGroup, CInput, CInputFile, CLabel, CInvalidFeedback, CValidFeedback, CButton} from "@coreui/react";
+
 import FormAplikasi from "./FormAplikasi";
 import {Redirect} from 'react-router-dom'
 import FormHelper from "./FormHelper";
 const Aplikasi = () => {
   const User = JSON.parse(localStorage.getItem('user'));
-  const {Form, HandleForm, Loading, CobaSaveData, Valid, NotifEnter, SaveFile, Error, Suk} = FormHelper();
+  const {Form, HandleForm, Loading, CobaSaveData, Valid, NotifEnter, SaveFile, Error, Suk, GetToken} = FormHelper();
   
   return (
     <CCard>
@@ -17,12 +18,15 @@ const Aplikasi = () => {
 
         <div className="card-header-actions text-danger font-weight-bold">
          {NotifEnter ? 'Tekan Enter Untuk Menyimpan' : null}
+         <CButton onClick={GetToken} color='primary' variant='outline' size='sm'>Dapatkan Token</CButton>
+         <a href={'https://drive.google.com/file/d/1REZKLRj6u91nLbBjeOCsZPP5CoHi3l6V/view?usp=sharing'} className={'ml-2 btn btn-success btn-sm'} style={{color : 'white'}}>Folder Upload</a>
         </div>
       </CCardHeader>
       <CCardBody>
         {
           Loading ? <p className='text-center'>....Loading Data</p>:
             <Fragment>
+              
               <FormAplikasi valid={Valid.nama} label={'Nama Instansi'} name={'nama'} value={Form.nama} onKeyPress={CobaSaveData} onChange={HandleForm} placeholder={'Nama Instansi'}/>
               <FormAplikasi valid={Valid.alamat} label={'Alamat Instansi'} name={'alamat'} value={Form.alamat} onKeyPress={CobaSaveData}  onChange={HandleForm} placeholder={'Alamat Instansi'}/>
               <FormAplikasi valid={Valid.kota} label={'Kota Instansi'} name={'kota'} value={Form.kota} onKeyPress={CobaSaveData}  onChange={HandleForm} placeholder={'Kota Instansi'}/>
@@ -32,6 +36,20 @@ const Aplikasi = () => {
               <FormAplikasi valid={Valid.kode_pos} label={'Kode Pos Instansi'} name={'kode_pos'} value={Form.kode_pos} onKeyPress={CobaSaveData}  onChange={HandleForm} placeholder={'Kode Pos Instansi'}/>
               <FormAplikasi valid={Valid.kode_surat} label={'Kode Surat Instansi'} name={'kode_surat'} value={Form.kode_surat} onKeyPress={CobaSaveData}  onChange={HandleForm} placeholder={'Kode Surat Instansi'}/>
               <FormAplikasi valid={Valid.url_server} label={'Link Upload Surat'} name={'url_server'} value={Form.url_server} onKeyPress={CobaSaveData}  onChange={HandleForm} placeholder={'Link Upload Surat'}/>
+              <CRow>
+                <CCol md={12}>
+                  <CFormGroup row>
+                    <CCol md="2 mt-1">
+                      <CLabel htmlFor="text-input">Token Upload Surat</CLabel>
+                    </CCol>
+                    <CCol xs="12" md="10">
+                      <CInput readOnly value={Form.token} />
+                      <CValidFeedback>Data Berhasil Diubah</CValidFeedback>
+                    </CCol>
+                  </CFormGroup>
+                </CCol>
+              </CRow>
+              
               <CRow>
               <CCol md={12}>
               <CFormGroup row>

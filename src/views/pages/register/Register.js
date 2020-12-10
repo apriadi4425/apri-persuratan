@@ -294,7 +294,7 @@ const Register = () => {
                         <React.Fragment>
                           <p style={{fontSize : 18, fontWeight : 'bold', color : 'green', marginTop : -5, marginBottom : 0}}>Register Berhasil</p>
                             <p style={{fontSize : 12, fontWeight : 'bold', marginBottom : 0}}>Silahkan lakuan pembayaran untuk segera diverifikasi oleh super admin</p>
-                            <p style={{fontSize : 12, fontWeight : 'bold', marginBottom : 0}}>Nomor Rekening : <span style={{color : 'red'}}>1584-01-000286-53-6</span> (B R I) : Jumlah (Rp. 500.000)</p>
+                            <p style={{fontSize : 12, fontWeight : 'bold', marginBottom : 0}}>Nomor Rekening : <span style={{color : 'red'}}>1584-01-000286-53-6</span> (B R I) : Jumlah (Rp. 50.000)</p>
                             <p style={{fontSize : 12, fontWeight : 'bold', marginBottom : 0}}>Atas Nama : Apriadi (0852-4950-0262 : Telpon & Whatshap)</p>
                         </React.Fragment> : null
                       }
