@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/apri-persuratan/precache-manifest.195f4e369fc171e062914fbca579cf9b.js"
+  "/apri-persuratan/precache-manifest.8b92d2047a9815bea5bc2c968a2863d2.js"
 );
 
 self.addEventListener('message', (event) => {

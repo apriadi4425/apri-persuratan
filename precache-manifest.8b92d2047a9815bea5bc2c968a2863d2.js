@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "0bc11c48b1f29ba7b1d732ced999c5de",
+    "revision": "dc2f342afb56225579732ac8d89337e9",
     "url": "/apri-persuratan/index.html"
   },
   {
@@ -24,7 +24,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/apri-persuratan/static/css/17.ca8ab4a8.chunk.css"
   },
   {
-    "revision": "c14cd8c9a8fc705d7293",
+    "revision": "b5f8df74e0fdbe424b1c",
     "url": "/apri-persuratan/static/css/19.62a87878.chunk.css"
   },
   {
@@ -112,8 +112,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/apri-persuratan/static/js/18.7a382989.chunk.js"
   },
   {
-    "revision": "c14cd8c9a8fc705d7293",
-    "url": "/apri-persuratan/static/js/19.bdfe4396.chunk.js"
+    "revision": "b5f8df74e0fdbe424b1c",
+    "url": "/apri-persuratan/static/js/19.6235cece.chunk.js"
   },
   {
     "revision": "6e9ec2b23953e3942061",
@@ -128,8 +128,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/apri-persuratan/static/js/21.b6d8070a.chunk.js"
   },
   {
-    "revision": "96353fd491f53b85c048",
-    "url": "/apri-persuratan/static/js/22.ed6e76b9.chunk.js"
+    "revision": "f1ab97137234ebc6924e",
+    "url": "/apri-persuratan/static/js/22.84d1b0de.chunk.js"
   },
   {
     "revision": "5b063a8b1fc0e0422fb0",
@@ -344,7 +344,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/apri-persuratan/static/js/main.868585d4.chunk.js"
   },
   {
-    "revision": "a953d58cfb8e66dd33c8",
-    "url": "/apri-persuratan/static/js/runtime-main.1f80ca7e.js"
+    "revision": "d9ee9eb3d2356f330f1b",
+    "url": "/apri-persuratan/static/js/runtime-main.8959171a.js"
   }
 ]);
