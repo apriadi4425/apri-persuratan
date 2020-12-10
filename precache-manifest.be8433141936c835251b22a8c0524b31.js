@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "dc2f342afb56225579732ac8d89337e9",
+    "revision": "4960dcc67725b2e2467a3ec72428b286",
     "url": "/apri-persuratan/index.html"
   },
   {
@@ -292,8 +292,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/apri-persuratan/static/js/58.56aab8a0.chunk.js"
   },
   {
-    "revision": "d8a507760695c15fafe9",
-    "url": "/apri-persuratan/static/js/59.e21702ac.chunk.js"
+    "revision": "f340815ce88e16dfc7b1",
+    "url": "/apri-persuratan/static/js/59.4f4f6b38.chunk.js"
   },
   {
     "revision": "4cf720b8528fb173e098",
@@ -344,7 +344,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/apri-persuratan/static/js/main.868585d4.chunk.js"
   },
   {
-    "revision": "d9ee9eb3d2356f330f1b",
-    "url": "/apri-persuratan/static/js/runtime-main.8959171a.js"
+    "revision": "93f098461043481cdbca",
+    "url": "/apri-persuratan/static/js/runtime-main.53ddce89.js"
   }
 ]);
