@@ -31,7 +31,7 @@ const FormLoginKomponent = ({history}) => {
           <CButton onClick={CobaLogin} disabled={Loading} color="primary" className="px-4">{Loading ? '...Loading' : 'Login'}</CButton>
         </CCol>
         <CCol xs="6" className="text-right">
-          <a href="https://drive.google.com/file/d/1WBSjAZvAcP_40AWhcOGkfegu1zB29awj/view?usp=sharing" style={{marginTop : 5}}>Download APK</a>
+          <a href="" style={{marginTop : 5}}>Download APK</a>
         </CCol>
       </CRow>
     </CForm>
