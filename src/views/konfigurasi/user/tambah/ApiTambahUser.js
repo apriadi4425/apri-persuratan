@@ -20,14 +20,12 @@ const ApiTambahUser = (GetDataUser) => {
     const User = JSON.parse(localStorage.getItem('user'));
     setButtonForm(true);
     await axios({
-      method : 'post',
+      method : 'POST',
       url : `${process.env.REACT_APP_BASE_URL}/api/register`,
       data: Form,
       headers: {
         Accept: 'application/json',
-        Authorization : `Bearer ${User.token}`,
-        'Access-Control-Allow-Origin' : '*',
-        'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+        Authorization : `Bearer ${User.token}`
       }
     }).then(res => {
       const PostData = {
