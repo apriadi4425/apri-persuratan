@@ -25,7 +25,9 @@ const ApiTambahUser = (GetDataUser) => {
       data: Form,
       headers: {
         Accept: 'application/json',
-        Authorization : `Bearer ${User.token}`
+        Authorization : `Bearer ${User.token}`,
+        'Access-Control-Allow-Origin' : '*',
+        'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',
       }
     }).then(res => {
       const PostData = {
